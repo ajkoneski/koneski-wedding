@@ -39,6 +39,14 @@
     </script>
 
     <style>
+
+        /* Hide bottom-right theme customizer button if still present */
+        [aria-label*="theme" i],
+        [title*="theme" i],
+        [class*="theme-customizer"],
+        [id*="theme-customizer"] {
+          display: none !important;
+        }
         /* Theme CSS Variables - Default: Classic Sage & Ivory */
         :root, [data-theme="sage"] {
             --bg-primary: #FAF8F5;
