@@ -1277,8 +1277,18 @@
         // Target Spreadsheet ID: 15BaH0ULV74CiSMqi1Cu_AERR_ZTMhuil2EUzMR4qFzg
         // ---------------------------------------------------------------------
         const GOOGLE_SHEET_ID = '15BaH0ULV74CiSMqi1Cu_AERR_ZTMhuil2EUzMR4qFzg';
-        const GOOGLE_SHEET_WEB_APP_URL = ''; // Paste your deployed Google Apps Script Web App URL here
+        const GOOGLE_SHEET_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw_Z4EbvArgMZ0-jy1Da5vjk80mBdhJp-OBhK7ygkqtV4y4kyBDi2Wck-W57tnFYshaLA/exec'; // Paste your deployed Google Apps Script Web App URL here
 
+        async function submitRsvpToSheet(payload) {
+          await fetch(GOOGLE_SHEET_WEB_APP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8'
+            },
+            body: JSON.stringify(payload)
+          });
+        }
         // ---------------------------------------------------------------------
         // Language Switcher Logic (MK / SR / EN / DE)
         // ---------------------------------------------------------------------
