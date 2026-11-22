@@ -937,7 +937,6 @@
                 dest4Desc: 'Stroll across the Stone Bridge and Macedonia Square, explore riverside cafes along the Vardar River, and enjoy lively evenings in the heart of the city.',
                 rsvpHeading: 'RSVP',
                 rsvpSubtitle: 'Please let us know if you will be able to celebrate with us.',
-                rsvpThanks: 'Thank you for your RSVP! Your response has been recorded.',
                 labelName: 'Full Name(s) *',
                 placeholderName: 'e.g., Marko & Ivana Petrovski',
                 labelResponse: 'Response *',
@@ -966,7 +965,6 @@
                 navTravel: 'Патување и Сместување',
                 navExplore: 'Истражи',
                 navRsvp: 'Потврда',
-                heroDate: '14 август 2027',
                 heroSubtitleTop: 'Дојдете да прославиме заедно!',
                 heroCta: 'Потврди присуство',
                 cdDays: 'Денови',
@@ -1043,7 +1041,6 @@
                 dest4Desc: 'Прошетајте преку Камениот мост и плоштадот Македонија, посетете ги кафулињата покрај Вардар и уживајте во живите вечери во центарот.',
                 rsvpHeading: 'Потврда на присуство',
                 rsvpSubtitle: 'Ве молиме потврдете дали ќе бидете во можност да прославите со нас.',
-                rsvpThanks: 'Ви благодариме за потврдата! Вашиот одговор е зачуван.',
                 labelName: 'Име и презиме *',
                 placeholderName: 'пр. Марко и Ивана Петровски',
                 labelResponse: 'Одговор *',
@@ -1148,7 +1145,6 @@
                 dest4Desc: 'Prošetajte preko Kamenog mosta i trga Makedonija, istražite kafiće pored Vardara i uživajte u živim večerima u centru grada.',
                 rsvpHeading: 'Potvrda dolaska',
                 rsvpSubtitle: 'Molimo vas da nam javite da li ćete biti u mogućnosti da slavite sa nama.',
-                rsvpThanks: 'Hvala vam na potvrdu! Vaš odgovor je sačuvan.',
                 labelName: 'Ime i prezime *',
                 placeholderName: 'npr. Marko i Ivana Petrović',
                 labelResponse: 'Odgovor *',
@@ -1253,7 +1249,6 @@
                 dest4Desc: 'Spaziert über die Steinbrücke und den Makedonija-Platz, entdeckt Cafés entlang des Vardar und genießt lebhafte Abende im Stadtzentrum.',
                 rsvpHeading: 'Rückmeldung (RSVP)',
                 rsvpSubtitle: 'Bitte gebt uns Bescheid, ob ihr diesen besonderen Tag mit uns feiern könnt.',
-                rsvpThanks: 'Vielen Dank für deine Rückmeldung! Deine Antwort wurde gespeichert.',
                 labelName: 'Vollständige(r) Name(n) *',
                 placeholderName: 'z. B. Marko & Ivana Petrovski',
                 labelResponse: 'Antwort *',
@@ -1281,17 +1276,9 @@
         // Google Sheets Endpoint (Apps Script Web App URL)
         // Target Spreadsheet ID: 15BaH0ULV74CiSMqi1Cu_AERR_ZTMhuil2EUzMR4qFzg
         // ---------------------------------------------------------------------
-      <script>
         const GOOGLE_SHEET_ID = '15BaH0ULV74CiSMqi1Cu_AERR_ZTMhuil2EUzMR4qFzg';
         const GOOGLE_SHEET_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbw_Z4EbvArgMZ0-jy1Da5vjk80mBdhJp-OBhK7ygkqtV4y4kyBDi2Wck-W57tnFYshaLA/exec'; // Paste your deployed Google Apps Script Web App URL here
 
-        const rsvpMessages = {
-          mk: 'Ви благодариме за потврдата! Вашиот одговор е зачуван.',
-          sr: 'Хвала вам на потврди! Ваш одговор је сачуван.',
-          en: 'Thank you for your RSVP! Your response has been recorded.',
-          de: 'Vielen Dank für deine Rückmeldung! Deine Antwort wurde gespeichert.'
-        };
-        
         async function submitRsvpToSheet(payload) {
           await fetch(GOOGLE_SHEET_WEB_APP_URL, {
             method: 'POST',
@@ -1302,32 +1289,6 @@
             body: JSON.stringify(payload)
           });
         }
-
-        // 2. Call submitRsvpToSheet inside your existing RSVP submit handler
-        rsvpForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-
-          const lang = (typeof currentLang !== 'undefined' && rsvpMessages[currentLang])
-            ? currentLang
-            : 'en';
-
-          const payload = {
-            timestamp: new Date().toISOString(),
-            name: document.getElementById('rsvp-name').value.trim(),
-            response: document.querySelector('input[name="response"]:checked')?.value || '',
-            guests: parseInt(document.getElementById('rsvp-guests').value, 10) || 0,
-            message: document.getElementById('rsvp-message').value.trim(),
-            language: lang
-          };
-
-          await submitRsvpToSheet(payload);
-
-          const statusEl = document.getElementById('rsvp-status');
-          statusEl.textContent = rsvpMessages[lang];
-          rsvpForm.reset();
-        });
-      </script>
-    </body>
         // ---------------------------------------------------------------------
         // Language Switcher Logic (MK / SR / EN / DE)
         // ---------------------------------------------------------------------
